@@ -35,7 +35,7 @@ http.createServer(function (req, res) {
 }).listen(3000);
 console.log("Start");
 
-let arr = ['text for page 1', 'text for page 2', 'text for page 3', 'text for page 4', 'text for page 5'];
+let arr = ['text for page 1', 'text for page 2', 'text for page 3', 'text for page 4', 'text for page 5', 'text for page 6', 'text for page 7', 'text for page 8', 'text for page 8', 'text for page 10', 'text for page 11', 'text for page 12'];
 
 function homepage(req, res) {
     res.end("homepage");
