@@ -51,22 +51,10 @@ function list(req, res, urlParts) {
         query = parseQuery(urlParts.query);
     }
     if (query && query.page) {
-        currentPage = parseInt(query.page, 10);
-        if (!(currentPage >= 0)) {
-            currentPage = 0;
-        }
-        if ((currentPage >= totalPage)) {
-            currentPage = totalPage - 1;
-        }
+        currentPage = testPageNumber(query.page, totalPage);
     }
     if (query && query.pageSize) {
-        pageSize = parseInt(query.pageSize, 10);
-        if (!(pageSize > 0)) {
-            pageSize = 1;
-        }
-        if (pageSize > Math.ceil(totalPage / (currentPage + 1))) {
-            pageSize = 1;
-        }
+        pageSize = testPageSize(query.pageSize, totalPage, currentPage);
     }
     query.pageSize = pageSize;
     query.page = currentPage;
@@ -77,6 +65,17 @@ function list(req, res, urlParts) {
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(datasend));
     //res.end();
+}
+
+function testPageNumber(queryPage, totalPage) {
+    let localPage = parseInt(queryPage, 10);
+    if (!(localPage >= 0)) {
+        localPage = 0;
+    }
+    if ((localPage >= totalPage)) {
+        localPage = totalPage - 1;
+    }
+    return localPage;
 }
 
 function testPageSize(queryPageSize, totalPage, currentPage) {
